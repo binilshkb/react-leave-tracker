@@ -15,7 +15,7 @@ const NAV = [
 ];
 
 export default function Sidebar() {
-  const { stats, currentEmployee } = useApp();
+  const { stats, authUser, logout } = useApp();
 
   return (
     <aside className="sidebar">
@@ -47,16 +47,25 @@ export default function Sidebar() {
         ))}
       </div>
 
-      {/* Current user */}
+      {/* Current user + logout */}
       <div className="sidebar-employee">
-        <div className="avatar sm">{currentEmployee.avatar}</div>
-        <div style={{ minWidth: 0 }}>
+        <div className="avatar sm">{authUser?.avatar ?? 'HR'}</div>
+        <div style={{ minWidth: 0, flex: 1 }}>
           <div style={{ fontSize: 13, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {currentEmployee.name}
+            {authUser?.name ?? 'HR Admin'}
           </div>
-          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{currentEmployee.position}</div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{authUser?.position ?? 'Administrator'}</div>
         </div>
+        <button
+          className="btn btn-ghost btn-icon"
+          title="Sign out"
+          onClick={logout}
+          style={{ flexShrink: 0 }}
+        >
+          <LogOut size={16} />
+        </button>
       </div>
     </aside>
   );
 }
+
