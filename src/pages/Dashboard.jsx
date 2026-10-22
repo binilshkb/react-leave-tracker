@@ -11,6 +11,21 @@ import { format, subDays } from 'date-fns';
 
 const COLORS = ['#10b981', '#ef4444', '#f59e0b', '#4f46e5'];
 
+// ── Shared dark-mode tooltip style ─────────────────────────────────────────
+const TOOLTIP_STYLE = {
+  contentStyle: {
+    background: '#1e293b',
+    border: '1px solid #334155',
+    borderRadius: '8px',
+    boxShadow: '0 4px 12px rgba(0,0,0,.5)',
+    color: '#f1f5f9',
+    fontSize: 13,
+  },
+  labelStyle:   { color: '#f1f5f9', fontWeight: 700, marginBottom: 4 },
+  itemStyle:    { color: '#94a3b8' },
+  cursor:       { fill: 'rgba(99,102,241,.08)' },
+};
+
 // Generate mock weekly data
 const weeklyData = Array.from({ length: 7 }, (_, i) => {
   const d = subDays(new Date(), 6 - i);
@@ -116,7 +131,7 @@ export default function Dashboard() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                 <XAxis dataKey="day" />
                 <YAxis allowDecimals={false} />
-                <Tooltip />
+                <Tooltip {...TOOLTIP_STYLE} />
                 <Legend />
                 <Bar dataKey="present" fill="#10b981" radius={[4,4,0,0]} name="Present" />
                 <Bar dataKey="absent"  fill="#ef4444" radius={[4,4,0,0]} name="Absent" />
@@ -148,7 +163,7 @@ export default function Dashboard() {
                       <Cell key={i} fill={COLORS[i % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip {...TOOLTIP_STYLE} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
